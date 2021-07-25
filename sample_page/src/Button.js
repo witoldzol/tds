@@ -5,7 +5,7 @@ function Button () {
   return (
     <button className="btn">
       Emacs is better than Vim.{'\n'}
-      Click to prove me wrong!
+      Click to agree!
     </button>
   )
 }
