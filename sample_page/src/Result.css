@@ -1,0 +1,7 @@
+.result {
+  background-color: slategrey;
+  margin: 0 15vh 0 15vh;
+  padding: 20px;
+  text-align: left;
+  overflow: auto ;
+}

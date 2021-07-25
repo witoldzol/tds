@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7c2a90d0-cf06-4b01-8b76-2383fb2a8b8a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Button.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Button.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Result.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Result.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1voZ1GlkSMPQRDJWWkcQw5g3DGY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="javascript.nodejs.core.library.configured.version" value="15.6.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7c2a90d0-cf06-4b01-8b76-2383fb2a8b8a" name="Default Changelist" comment="" />
+      <created>1627230184513</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1627230184513</updated>
+      <workItem from="1627230185937" duration="69000" />
+      <workItem from="1627230434315" duration="10257000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="238" y="421" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1627244211298">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state x="238" y="421" key="#com.intellij.fileTypes.FileTypeChooser/213.1223.1440.877/0.23.1920.1177@0.23.1920.1177" timestamp="1627244211298" />
+    <state x="218" y="365" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1627247208528">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state x="218" y="365" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/213.1223.1440.877/0.23.1920.1177@0.23.1920.1177" timestamp="1627247208528" />
+    <state x="285" y="535" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1627244522451">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state x="285" y="535" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/213.1223.1440.877/0.23.1920.1177@0.23.1920.1177" timestamp="1627244522451" />
+    <state x="640" y="368" width="639" height="486" key="find.popup" timestamp="1627231071114">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state x="640" y="368" width="639" height="486" key="find.popup/213.1223.1440.877/0.23.1920.1177@0.23.1920.1177" timestamp="1627231071114" />
+    <state x="623" y="286" width="672" height="678" key="search.everywhere.popup" timestamp="1627247176422">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state x="623" y="286" width="672" height="678" key="search.everywhere.popup/213.1223.1440.877/0.23.1920.1177@0.23.1920.1177" timestamp="1627247176422" />
+  </component>
+</project>
