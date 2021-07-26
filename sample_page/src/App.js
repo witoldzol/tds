@@ -7,24 +7,26 @@ function App () {
   const [data, setData] = useState({ json: '', err: '' })
   const url = 'https://postman-echo.com/get?foo1=bar1&foo2=bar2'
 
-  const handleError = err => setData(
-    { json: '', err: `Oops something went wrong:  ${err.message}` })
+  const handleError = err =>
+    setData({ json: '', err: `Oops something went wrong:  ${err}` })
+
+  const handleData = data =>
+    setData({ json: data, err: '' })
 
   const fetchData = () => {
     return fetch(url)
       .then((response) => response.json())
-      .catch(err => handleError())
+      .then(data => handleData(data))
+      .catch(err => handleError(err.message))
   }
 
   const displayResult = data => {
-    if (data.json) return <Result result={data}/>
+    if (data.json || data.err) return <Result result={data}/>
   }
 
   return (
     <div className="App">
-      <div onClick={() => {
-        fetchData().then(data => setData({ json: data, err: '' }))
-      }} className="App-header">
+      <div onClick={() => fetchData()} className="App-header">
         <Button/>
       </div>
       <div className="App-body">

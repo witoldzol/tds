@@ -4,8 +4,9 @@ import './Button.css'
 function Button () {
   return (
     <button className="btn">
-      Emacs is better than Vim.{'\n'}
-      Click to agree!
+        Who won the war?
+        Emacs or Vim ?!
+        Click to find out!
     </button>
   )
 }

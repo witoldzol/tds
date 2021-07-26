@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7c2a90d0-cf06-4b01-8b76-2383fb2a8b8a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Button.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Button.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Result.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Result.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reportWebVitals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setupTests.js" beforeDir="false" />
-    </list>
+    <list default="true" id="7c2a90d0-cf06-4b01-8b76-2383fb2a8b8a" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +11,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1voZ1GlkSMPQRDJWWkcQw5g3DGY" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -53,7 +42,7 @@
       <option name="presentableId" value="Default" />
       <updated>1627230184513</updated>
       <workItem from="1627230185937" duration="69000" />
-      <workItem from="1627230434315" duration="10529000" />
+      <workItem from="1627230434315" duration="11263000" />
     </task>
     <servers />
   </component>
@@ -73,13 +62,13 @@
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
     <state x="285" y="535" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/213.1223.1440.877/0.23.1920.1177@0.23.1920.1177" timestamp="1627244522451" />
-    <state x="640" y="368" width="639" height="486" key="find.popup" timestamp="1627247538073">
+    <state x="640" y="368" width="639" height="486" key="find.popup" timestamp="1627284915851">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state x="640" y="368" width="639" height="486" key="find.popup/213.1223.1440.877/0.23.1920.1177@0.23.1920.1177" timestamp="1627247538073" />
-    <state x="623" y="286" width="672" height="678" key="search.everywhere.popup" timestamp="1627247176422">
+    <state x="640" y="368" width="639" height="486" key="find.popup/213.1223.1440.877/0.23.1920.1177@0.23.1920.1177" timestamp="1627284915851" />
+    <state x="623" y="286" width="672" height="678" key="search.everywhere.popup" timestamp="1627284991837">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state x="623" y="286" width="672" height="678" key="search.everywhere.popup/213.1223.1440.877/0.23.1920.1177@0.23.1920.1177" timestamp="1627247176422" />
+    <state x="623" y="286" width="672" height="678" key="search.everywhere.popup/213.1223.1440.877/0.23.1920.1177@0.23.1920.1177" timestamp="1627284991837" />
   </component>
 </project>

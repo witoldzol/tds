@@ -5,4 +5,5 @@
   color: white;
   width: 250px;
   height: 10vh;
+  min-height: 50px;
 }
