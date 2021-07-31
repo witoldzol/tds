@@ -2,16 +2,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CsvParser {
- public String[] parse(Path pathToFile) {
+ public ArrayList<String[]> parse(Path pathToFile) {
    try(BufferedReader br = Files.newBufferedReader(pathToFile)){
-     return br.readLine().split(",");
-//     String line = "";
-//     while((line =  br.readLine()) != null){
-//       str += line;
-//     };
-//     return str;
+//     return br.readLine().split(",");
+     ArrayList<String[]> result = new ArrayList<>();
+     String line = "";
+     while((line =  br.readLine()) != null){
+       String[] temp = line.split(",");
+       result.add(temp);
+     };
+     return result;
    } catch (IOException e) {
      e.printStackTrace();
    }
