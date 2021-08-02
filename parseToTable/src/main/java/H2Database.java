@@ -5,39 +5,37 @@ import java.sql.Statement;
 
 public class H2Database {
   static final String JDBC_DRIVER = "org.h2.Driver";
-  static final String DB_URL = "jdbc:h2:~/IdeaProjects/tds_test/parseToTable/dbfile.mv.db";
+  static final String DB_URL = "jdbc:h2:mem:";
 
-  public static void main(String[] args) {
-    Connection conn = null;
+  public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    executeQuery(createRestaurantTableSql(), getConnection());
+  }
+
+  private static String createRestaurantTableSql() {
+    return "CREATE TABLE   RESTAURANTS " +
+            "(id INTEGER not NULL, " +
+            " name VARCHAR(255), " +
+            " last VARCHAR(255), " +
+            " age INTEGER, " +
+            " PRIMARY KEY ( id ))";
+  }
+
+  private static void executeQuery(String sql, Connection conn) {
     Statement stmt = null;
     try {
-      // STEP 1: Register JDBC driver
-      Class.forName(JDBC_DRIVER);
-
-      //STEP 2: Open a connection
-      System.out.println("Connecting to database...");
-      conn = DriverManager.getConnection(DB_URL);
-
-      //STEP 3: Execute a query
+      // Execute a query
       System.out.println("Creating table in given database...");
       stmt = conn.createStatement();
-      String sql = "CREATE TABLE   RESTAURANTS " +
-              "(id INTEGER not NULL, " +
-              " first VARCHAR(255), " +
-              " last VARCHAR(255), " +
-              " age INTEGER, " +
-              " PRIMARY KEY ( id ))";
       stmt.executeUpdate(sql);
       System.out.println("Created table in given database...");
 
-      // STEP 4: Clean-up environment
+      // Clean-up environment
       stmt.close();
       conn.close();
     } catch (SQLException se) {
       //Handle errors for JDBC
       se.printStackTrace();
     } catch (Exception e) {
-      //Handle errors for Class.forName
       e.printStackTrace();
     } finally {
       //finally block used to close resources
@@ -51,6 +49,16 @@ public class H2Database {
         se.printStackTrace();
       } //end finally try
     } //end try
-    System.out.println("Goodbye!");
+  }
+
+  private static Connection getConnection() throws ClassNotFoundException, SQLException {
+    Connection conn = null;
+    // STEP 1: Register JDBC driver
+    Class.forName(JDBC_DRIVER);
+
+    //STEP 2: Open a connection
+    System.out.println("Connecting to database...");
+    conn = DriverManager.getConnection(DB_URL);
+    return conn;
   }
 }
