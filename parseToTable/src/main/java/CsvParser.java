@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,8 +67,29 @@ public class CsvParser {
     return pattern.matcher(period);
   }
 
-  public Set<DayOfWeek> parseDayRange(String period) {
-    return new HashSet<>();
+  public Set<DayOfWeek> parseDayRange(String period) throws Exception {
+    String regex = "((mon|tue|wed|thu|fri|sat|sun)-(mon|tue|wed|thu|fri|sat|sun))";
+    Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+    Matcher matcher = pattern.matcher(period);
+    Set<DayOfWeek> days = new HashSet<>();
+    if (matcher.find()) {
+      String open = matcher.group(2).toLowerCase();
+      open = open.substring(0,1).toUpperCase() + open.substring(1);
+      String close = matcher.group(3).toLowerCase();
+      close = close.substring(0,1).toUpperCase() + close.substring(1);
+      System.out.println(open);
+      System.out.println(close);
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("eee");
+      TemporalAccessor startAccessor = formatter.parse(open);
+      int start = DayOfWeek.from(startAccessor).getValue();
+      TemporalAccessor closeAccessor = formatter.parse(close);
+      int end = DayOfWeek.from(closeAccessor).getValue();
+      if (start >= end) throw new Exception("Starting day cannot be the same or after end day");
+      for (int i = start; i <= end; i++) {
+        days.add(DayOfWeek.of(i));
+      }
+    }
+    return days;
   }
 }
 
