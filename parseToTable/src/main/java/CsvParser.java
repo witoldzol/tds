@@ -66,5 +66,8 @@ public class CsvParser {
     return pattern.matcher(period);
   }
 
+  public Set<DayOfWeek> parseDayRange(String period) {
+    return new HashSet<>();
+  }
 }
 

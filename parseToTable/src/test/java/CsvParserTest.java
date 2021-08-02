@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Path;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -57,8 +58,20 @@ class CsvParserTest {
   @Test
   public void parsesOpeningDays() {
     String period = "Mon";
-    Set<DayOfWeek> result = csvParser.parseOpeningDays(period);
-    assertEquals(1,result.size());
+//    Set<DayOfWeek> result = csvParser.parseOpeningDays(period);
+//    assertEquals(1,result.size());
+    period = "Mon-Wed";
+//    result = csvParser.parseOpeningDays(period);
+//    assertEquals(3,result.size());
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE-EEE");
+    System.out.println(LocalDate.parse(period,formatter));
+  }
+
+  @Test
+  public void matchDayRange(){
+    String period = "Mon-tue";
+    Set<DayOfWeek> result = csvParser.parseDayRange(period);
+    assertEquals(2,result.size());
   }
 
   private List<String[]> getListOfOpeningTimes() {
