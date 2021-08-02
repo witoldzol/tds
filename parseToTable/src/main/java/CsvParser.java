@@ -67,29 +67,71 @@ public class CsvParser {
     return pattern.matcher(period);
   }
 
-  public Set<DayOfWeek> parseDayRange(String period) throws Exception {
-    String regex = "((mon|tue|wed|thu|fri|sat|sun)-(mon|tue|wed|thu|fri|sat|sun))";
-    Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-    Matcher matcher = pattern.matcher(period);
+  public Set<DayOfWeek> getSetOfDays(String period) throws Exception {
+    if (isDayRange(getDayRangeMatcher(period))) {
+      return parseRangeOfDays(period);
+    }
+    return Collections.emptySet();
+  }
+
+  private boolean isDayRange(Matcher matcher) {
+    return matcher.find();
+  }
+
+  private Set<DayOfWeek> parseRangeOfDays(String period) throws Exception {
+    Matcher matcher = singleDayMatcher(period);
+    List<Integer> range = new ArrayList<>();
+    while (matcher.find()) {
+      range.add(dayToInteger(matcher, dayFormatter()));
+    }
+
+    validateResult(range);
+
+    return populateSetWithDayOfWeek(range.get(0), range.get(1));
+  }
+
+  private void validateResult(List<Integer> range) throws Exception {
+    if (range.size() != 2) throw new Exception("Invalid input - incorrect number of days matched");
+    int start = range.get(0);
+    int end = range.get(1);
+    if (start < 0 || end < 0) throw new Exception("Failed to parse a day");
+    if (start >= end) throw new Exception("Starting day cannot be the same or after end day");
+  }
+
+  private DateTimeFormatter dayFormatter() {
+    return DateTimeFormatter.ofPattern("eee");
+  }
+
+  private Set<DayOfWeek> populateSetWithDayOfWeek(int start, int end) {
     Set<DayOfWeek> days = new HashSet<>();
-    if (matcher.find()) {
-      String open = matcher.group(2).toLowerCase();
-      open = open.substring(0,1).toUpperCase() + open.substring(1);
-      String close = matcher.group(3).toLowerCase();
-      close = close.substring(0,1).toUpperCase() + close.substring(1);
-      System.out.println(open);
-      System.out.println(close);
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("eee");
-      TemporalAccessor startAccessor = formatter.parse(open);
-      int start = DayOfWeek.from(startAccessor).getValue();
-      TemporalAccessor closeAccessor = formatter.parse(close);
-      int end = DayOfWeek.from(closeAccessor).getValue();
-      if (start >= end) throw new Exception("Starting day cannot be the same or after end day");
-      for (int i = start; i <= end; i++) {
-        days.add(DayOfWeek.of(i));
-      }
+    for (int i = start; i <= end; i++) {
+      days.add(DayOfWeek.of(i));
     }
     return days;
+  }
+
+  private int dayToInteger(Matcher matcher, DateTimeFormatter formatter) {
+    String firstMatch = matcher.group(1).toLowerCase();
+    firstMatch = captitalizeFirstLetter(firstMatch);
+    TemporalAccessor startAccessor = formatter.parse(firstMatch);
+    return DayOfWeek.from(startAccessor).getValue();
+  }
+
+  private String captitalizeFirstLetter(String secondMatch) {
+    secondMatch = secondMatch.substring(0, 1).toUpperCase() + secondMatch.substring(1);
+    return secondMatch;
+  }
+
+  private Matcher getDayRangeMatcher(String period) {
+    String regex = "((mon|tue|wed|thu|fri|sat|sun)-(mon|tue|wed|thu|fri|sat|sun))";
+    Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+    return pattern.matcher(period);
+  }
+
+  private Matcher singleDayMatcher(String period) {
+    String regex = "(mon|tue|wed|thu|fri|sat|sun)";
+    Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+    return pattern.matcher(period);
   }
 }
 

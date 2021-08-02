@@ -3,16 +3,9 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -68,11 +61,20 @@ class CsvParserTest {
 //  }
 
   @Test
+  public void matchEmptyDayRange() throws Exception {
+    String period = "Mon";
+    Set<DayOfWeek> result = csvParser.getSetOfDays(period);
+    assertEquals(0,result.size());
+  }
+
+  @Test
   public void matchDayRange() throws Exception {
-//    String period = "Mon-tue";
     String period = "Mon-TUE";
-    Set<DayOfWeek> result = csvParser.parseDayRange(period);
+    Set<DayOfWeek> result = csvParser.getSetOfDays(period);
     assertEquals(2,result.size());
+    period = "tue-saT";
+    result = csvParser.getSetOfDays(period);
+    assertEquals(5,result.size());
   }
 
   private List<String[]> getListOfOpeningTimes() {
