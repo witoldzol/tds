@@ -32,13 +32,6 @@ public class CsvParser {
     return lines.map(str -> str.replaceAll("\"", ""));
   }
 
-  public Set<DayOfWeek> parseOpeningDays(String period) {
-    HashSet<DayOfWeek> days = new HashSet<>();
-    days.add(DayOfWeek.MONDAY);
-    return days;
-
-  }
-
   public OpeningTime parseOpeningTime(String str) throws Exception {
     List<LocalTime> times = getOpeningAndClosingTime(get24HourTimeMatcher(str));
     throwIfMoreThanTwoTimesProvided(times);
@@ -111,8 +104,8 @@ public class CsvParser {
   private int dayToInteger(Matcher matcher) {
     String firstMatch = matcher.group(1).toLowerCase();
     firstMatch = captitalizeFirstLetter(firstMatch);
-    TemporalAccessor startAccessor = dayFormatter().parse(firstMatch);
-    return DayOfWeek.from(startAccessor).getValue();
+    TemporalAccessor accessor = dayFormatter().parse(firstMatch);
+    return DayOfWeek.from(accessor).getValue();
   }
 
   private String captitalizeFirstLetter(String secondMatch) {
