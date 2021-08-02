@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -12,7 +13,7 @@ public class CsvParser {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return null;
+    return Collections.emptyList();
   }
 
   private List<String[]> splitIntoTwoElements(Stream<String> lines) {
