@@ -1,7 +1,8 @@
 import java.time.LocalTime;
 
 public class OpeningTime {
-  private LocalTime opening;
+  private final LocalTime opening;
+  private final LocalTime closing;
 
   public LocalTime getOpening() {
     return opening;
@@ -10,8 +11,6 @@ public class OpeningTime {
   public LocalTime getClosing() {
     return closing;
   }
-
-  private LocalTime closing;
 
   public OpeningTime(LocalTime opening, LocalTime closing) {
     this.opening = opening;

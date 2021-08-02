@@ -42,7 +42,7 @@ class CsvParserTest {
   }
 
   @Test
-  public void throwsWhenInvalidTimeProvided() throws Exception {
+  public void throwsWhenInvalidTimeProvided() {
     assertThrows(Exception.class, () -> csvParser.parseOpeningTime("11:00 - 12:00"));
     assertThrows(Exception.class, () -> csvParser.parseOpeningTime("1100 - 12:00 pm"));
     assertThrows(Exception.class, () -> csvParser.parseOpeningTime("11 pm"));

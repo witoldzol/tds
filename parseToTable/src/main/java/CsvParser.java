@@ -103,12 +103,12 @@ public class CsvParser {
 
   private int dayToInteger(Matcher matcher) {
     String firstMatch = matcher.group(1).toLowerCase();
-    firstMatch = captitalizeFirstLetter(firstMatch);
+    firstMatch = capitalizeFirstLetter(firstMatch);
     TemporalAccessor accessor = dayFormatter().parse(firstMatch);
     return DayOfWeek.from(accessor).getValue();
   }
 
-  private String captitalizeFirstLetter(String secondMatch) {
+  private String capitalizeFirstLetter(String secondMatch) {
     secondMatch = secondMatch.substring(0, 1).toUpperCase() + secondMatch.substring(1);
     return secondMatch;
   }
