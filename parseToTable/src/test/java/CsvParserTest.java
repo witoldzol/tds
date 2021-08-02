@@ -2,9 +2,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CsvParserTest {
   CsvParser csvParser;
@@ -19,13 +23,16 @@ class CsvParserTest {
   @Test
   public void parsesDataIntoTwoElements() {
     List<String[]> result = csvParser.parse(Path.of("src/test/resources/data.csv"));
-    assertArrayEquals(expected.toArray(), result.toArray());
+    assertEquals(3 ,result.size());
+    for( String[] arr : result){
+      assertEquals(2, arr.length );
+    }
   }
 
   @Test
   public void parsesOpeningTimes() {
-    List<String[]> result = csvParser.parse(Path.of("src/test/resources/data.csv"));
-    assertArrayEquals(expected.toArray(), result.toArray());
+    Map<Integer, OpeningTime> result = csvParser.parseTime("Mon-Sun 11:30 am - 9 pm");
+    assertEquals(LocalTime.of(11,30), result.get(1).opening);
   }
 
   private List<String[]> getExpected() {
