@@ -82,11 +82,9 @@ public class CsvParser {
     Matcher matcher = singleDayMatcher(period);
     List<Integer> range = new ArrayList<>();
     while (matcher.find()) {
-      range.add(dayToInteger(matcher, dayFormatter()));
+      range.add(dayToInteger(matcher));
     }
-
     validateResult(range);
-
     return populateSetWithDayOfWeek(range.get(0), range.get(1));
   }
 
@@ -110,10 +108,10 @@ public class CsvParser {
     return days;
   }
 
-  private int dayToInteger(Matcher matcher, DateTimeFormatter formatter) {
+  private int dayToInteger(Matcher matcher) {
     String firstMatch = matcher.group(1).toLowerCase();
     firstMatch = captitalizeFirstLetter(firstMatch);
-    TemporalAccessor startAccessor = formatter.parse(firstMatch);
+    TemporalAccessor startAccessor = dayFormatter().parse(firstMatch);
     return DayOfWeek.from(startAccessor).getValue();
   }
 
