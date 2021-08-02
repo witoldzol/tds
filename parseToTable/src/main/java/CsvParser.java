@@ -61,14 +61,14 @@ public class CsvParser {
   }
 
   public Set<DayOfWeek> getSetOfDays(String period) throws Exception {
-    if (isDayRange(getDayRangeMatcher(period))) {
+    if (isDayRange(period)) {
       return parseRangeOfDays(period);
     }
     return Collections.emptySet();
   }
 
-  private boolean isDayRange(Matcher matcher) {
-    return matcher.find();
+  private boolean isDayRange(String period) {
+    return getDayRangeMatcher(period).find();
   }
 
   private Set<DayOfWeek> parseRangeOfDays(String period) throws Exception {
