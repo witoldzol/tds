@@ -58,6 +58,7 @@ class CsvParserTest {
   public void parsesOpeningDays() {
     String period = "Mon";
     Set<DayOfWeek> result = csvParser.parseOpeningDays(period);
+    assertEquals(1,result.size());
   }
 
   private List<String[]> getListOfOpeningTimes() {
