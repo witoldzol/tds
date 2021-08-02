@@ -3,11 +3,14 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CsvParserTest {
@@ -23,16 +26,17 @@ class CsvParserTest {
   @Test
   public void parsesDataIntoTwoElements() {
     List<String[]> result = csvParser.parse(Path.of("src/test/resources/data.csv"));
-    assertEquals(3 ,result.size());
-    for( String[] arr : result){
-      assertEquals(2, arr.length );
+    assertEquals(3, result.size());
+    for (String[] arr : result) {
+      assertEquals(2, arr.length);
     }
   }
 
   @Test
-  public void parsesOpeningTimes() {
-    Map<Integer, OpeningTime> result = csvParser.parseTime("Mon-Sun 11:30 am - 9 pm");
-    assertEquals(LocalTime.of(11,30), result.get(1).opening);
+  public void parsesOpeningTimes() throws Exception {
+    String period = "Mon-Sun 11:30 am - 9 pm";
+    OpeningTime result = csvParser.parseTime(period);
+    assertEquals(LocalTime.of(11, 30), result.getOpening());
   }
 
   private List<String[]> getExpected() {

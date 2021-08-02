@@ -2,10 +2,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,14 +33,25 @@ public class CsvParser {
     return lines.map(str -> str.replaceAll("\"", ""));
   }
 
-  public Map<Integer, OpeningTime> parseTime(String str) {
-    HashMap<Integer, OpeningTime> map = new HashMap<>();
-    LocalTime opening = LocalTime.of(11, 30);
-    LocalTime closing = LocalTime.of(21, 0);
-
-    OpeningTime openingTime = new OpeningTime(opening, closing);
-    map.put(1, openingTime);
-    return map;
+  public OpeningTime parseTime(String str) throws Exception {
+    final Matcher matcher = get24HourTimeMatcher(str);
+    List<LocalTime> times = new ArrayList<>();
+    while (matcher.find()) {
+      String time = matcher.group(1).toUpperCase();
+      times.add(LocalTime.parse(time, getAmPmTimeFormatter()));
+    }
+    if (times.size() != 2) throw new Exception("Invalid time input");
+    return new OpeningTime(times.get(0), times.get(1));
   }
+
+  private DateTimeFormatter getAmPmTimeFormatter() {
+    return DateTimeFormatter.ofPattern("[h:m a][h a]", Locale.US);
+  }
+
+  private Matcher get24HourTimeMatcher(String period) {
+    final Pattern pattern = Pattern.compile("(\\d+:?\\d{0,2} (am|pm))");
+    return pattern.matcher(period);
+  }
+
 }
 
