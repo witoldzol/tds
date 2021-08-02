@@ -48,18 +48,6 @@ class CsvParserTest {
     assertThrows(Exception.class, () -> csvParser.parseOpeningTime("11 pm"));
   }
 
-//  @Test
-//  public void parsesOpeningDays() {
-//    String period = "Mon";
-////    Set<DayOfWeek> result = csvParser.parseOpeningDays(period);
-////    assertEquals(1,result.size());
-//    period = "Mon-Wed";
-////    result = csvParser.parseOpeningDays(period);
-////    assertEquals(3,result.size());
-//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE-EEE");
-//    System.out.println(LocalDate.parse(period,formatter));
-//  }
-
   @Test
   public void matchEmptyDayRange() throws Exception {
     String period = "Mon";
