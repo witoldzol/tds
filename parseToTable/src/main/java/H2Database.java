@@ -7,11 +7,8 @@ public class H2Database {
   static final String JDBC_DRIVER = "org.h2.Driver";
   static final String DB_URL = "jdbc:h2:mem:";
 
-  public static void main(String[] args) throws SQLException, ClassNotFoundException {
-    executeQuery(createRestaurantTableSql(), getConnection());
-  }
 
-  private static String createRestaurantTableSql() {
+  public static String createRestaurantTableSql() {
     return "CREATE TABLE   RESTAURANTS " +
             "(id INTEGER not NULL, " +
             " name VARCHAR(255), " +
@@ -20,7 +17,7 @@ public class H2Database {
             " PRIMARY KEY ( id ))";
   }
 
-  private static void executeQuery(String sql, Connection conn) {
+  public static void executeQuery(String sql, Connection conn) {
     Statement stmt = null;
     try {
       // Execute a query
@@ -51,7 +48,7 @@ public class H2Database {
     } //end try
   }
 
-  private static Connection getConnection() throws ClassNotFoundException, SQLException {
+  public static Connection getConnection() throws ClassNotFoundException, SQLException {
     Connection conn = null;
     // STEP 1: Register JDBC driver
     Class.forName(JDBC_DRIVER);
