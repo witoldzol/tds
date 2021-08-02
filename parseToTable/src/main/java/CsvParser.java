@@ -1,12 +1,10 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -33,15 +31,29 @@ public class CsvParser {
     return lines.map(str -> str.replaceAll("\"", ""));
   }
 
-  public OpeningTime parseTime(String str) throws Exception {
-    final Matcher matcher = get24HourTimeMatcher(str);
+  public Set<DayOfWeek> parseOpeningDays(String period) {
+    HashSet<DayOfWeek> days = new HashSet<>();
+    return days;
+
+  }
+
+  public OpeningTime parseOpeningTime(String str) throws Exception {
+    List<LocalTime> times = getOpeningAndClosingTime(get24HourTimeMatcher(str));
+    throwIfMoreThanTwoTimesProvided(times);
+    return new OpeningTime(times.get(0), times.get(1));
+  }
+
+  private List<LocalTime> getOpeningAndClosingTime(Matcher matcher) {
     List<LocalTime> times = new ArrayList<>();
     while (matcher.find()) {
       String time = matcher.group(1).toUpperCase();
       times.add(LocalTime.parse(time, getAmPmTimeFormatter()));
     }
-    if (times.size() != 2) throw new Exception("Invalid time input");
-    return new OpeningTime(times.get(0), times.get(1));
+    return times;
+  }
+
+  private void throwIfMoreThanTwoTimesProvided(List<LocalTime> times) throws Exception {
+    if (times.size() != 2) throw new Exception("There can only be only one time pair : opening and closing time");
   }
 
   private DateTimeFormatter getAmPmTimeFormatter() {
