@@ -61,10 +61,10 @@ public class CsvParser {
   }
 
   public Set<DayOfWeek> getSetOfDays(String period) throws Exception {
-    if (isDayRange(period)) {
-      return parseRangeOfDays(period);
+    if (isRangeOfDays(period)) {
+      return dayOfWeekRange(period);
     } else if (isSingleDay(period)) {
-      return parseSingleDay(period);
+      return singleDayOfWeek(period);
     }
     return Collections.emptySet();
   }
@@ -73,24 +73,29 @@ public class CsvParser {
     return singleDayMatcher(period).find();
   }
 
-  private boolean isDayRange(String period) {
+  private boolean isRangeOfDays(String period) {
     return dayRangeMatcher(period).find();
   }
 
-  private Set<DayOfWeek> parseRangeOfDays(String period) throws Exception {
+  private Set<DayOfWeek> dayOfWeekRange(String period) throws Exception {
+    List<Integer> range = rangeOfDaysAsIntegers(period);
+    validateRangeOfDaysResult(range);
+    return getDayOfWeekSetFromRange(range.get(0), range.get(1));
+  }
+
+  private List<Integer> rangeOfDaysAsIntegers(String period) {
     Matcher matcher = singleDayMatcher(period);
     List<Integer> range = new ArrayList<>();
     while (matcher.find()) {
-      range.add(dayToInteger(matcher));
+      range.add(dayToInteger(matcher.group(1)));
     }
-    validateRangeOfDaysResult(range);
-    return populateSetWithDayOfWeek(range.get(0), range.get(1));
+    return range;
   }
 
-  private Set<DayOfWeek> parseSingleDay(String period) throws Exception {
+  private Set<DayOfWeek> singleDayOfWeek(String period) {
     Matcher matcher = singleDayMatcher(period);
     matcher.find();
-    return new HashSet<>(Arrays.asList(DayOfWeek.of(dayToInteger(matcher))));
+    return new HashSet<>(Collections.singletonList(DayOfWeek.of(dayToInteger(matcher.group(1)))));
   }
 
   private void validateRangeOfDaysResult(List<Integer> range) throws Exception {
@@ -105,7 +110,7 @@ public class CsvParser {
     return DateTimeFormatter.ofPattern("eee");
   }
 
-  private Set<DayOfWeek> populateSetWithDayOfWeek(int from, int until) {
+  private Set<DayOfWeek> getDayOfWeekSetFromRange(int from, int until) {
     Set<DayOfWeek> days = new HashSet<>();
     for (int i = from; i <= until; i++) {
       days.add(DayOfWeek.of(i));
@@ -113,16 +118,15 @@ public class CsvParser {
     return days;
   }
 
-  private int dayToInteger(Matcher matcher) {
-    String matchedDay = matcher.group(1).toLowerCase();
-    matchedDay = capitalizeFirstLetter(matchedDay);
-    TemporalAccessor accessor = dayFormatter().parse(matchedDay);
+  private int dayToInteger(String day) {
+    String formattedDay = capitalizeFirstLetter(day);
+    TemporalAccessor accessor = dayFormatter().parse(formattedDay);
     return DayOfWeek.from(accessor).getValue();
   }
 
-  private String capitalizeFirstLetter(String secondMatch) {
-    secondMatch = secondMatch.substring(0, 1).toUpperCase() + secondMatch.substring(1);
-    return secondMatch;
+  private String capitalizeFirstLetter(String str) {
+    str = str.toLowerCase();
+    return str.substring(0, 1).toUpperCase() + str.substring(1);
   }
 
   private Matcher dayRangeMatcher(String period) {
