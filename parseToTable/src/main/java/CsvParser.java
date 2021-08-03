@@ -32,17 +32,17 @@ public class CsvParser {
     return lines.map(str -> str.replaceAll("\"", ""));
   }
 
-  public OpeningTime parseOpeningTime(String str) throws Exception {
+  public OpenCloseTimes parseOpeningTime(String str) throws Exception {
     List<LocalTime> times = getOpeningAndClosingTime(get24HourTimeMatcher(str));
     throwIfMoreThanTwoTimesProvided(times);
-    return new OpeningTime(times.get(0), times.get(1));
+    return new OpenCloseTimes(times.get(0), times.get(1));
   }
 
   private List<LocalTime> getOpeningAndClosingTime(Matcher matcher) {
     List<LocalTime> times = new ArrayList<>();
     while (matcher.find()) {
       String time = matcher.group(1).toUpperCase();
-      times.add(LocalTime.parse(time, getAmPmTimeFormatter()));
+      times.add(LocalTime.parse(time, amPmTimeFormater()));
     }
     return times;
   }
@@ -51,7 +51,7 @@ public class CsvParser {
     if (times.size() != 2) throw new Exception("There can only be only one time pair : opening and closing time");
   }
 
-  private DateTimeFormatter getAmPmTimeFormatter() {
+  private DateTimeFormatter amPmTimeFormater() {
     return DateTimeFormatter.ofPattern("[h:m a][h a]", Locale.US);
   }
 
@@ -63,12 +63,18 @@ public class CsvParser {
   public Set<DayOfWeek> getSetOfDays(String period) throws Exception {
     if (isDayRange(period)) {
       return parseRangeOfDays(period);
+    } else if (isSingleDay(period)) {
+      return parseSingleDay(period);
     }
     return Collections.emptySet();
   }
 
+  private boolean isSingleDay(String period) {
+    return singleDayMatcher(period).find();
+  }
+
   private boolean isDayRange(String period) {
-    return getDayRangeMatcher(period).find();
+    return dayRangeMatcher(period).find();
   }
 
   private Set<DayOfWeek> parseRangeOfDays(String period) throws Exception {
@@ -77,11 +83,17 @@ public class CsvParser {
     while (matcher.find()) {
       range.add(dayToInteger(matcher));
     }
-    validateResult(range);
+    validateRangeOfDaysResult(range);
     return populateSetWithDayOfWeek(range.get(0), range.get(1));
   }
 
-  private void validateResult(List<Integer> range) throws Exception {
+  private Set<DayOfWeek> parseSingleDay(String period) throws Exception {
+    Matcher matcher = singleDayMatcher(period);
+    matcher.find();
+    return new HashSet<>(Arrays.asList(DayOfWeek.of(dayToInteger(matcher))));
+  }
+
+  private void validateRangeOfDaysResult(List<Integer> range) throws Exception {
     if (range.size() != 2) throw new Exception("Invalid input - incorrect number of days matched");
     int start = range.get(0);
     int end = range.get(1);
@@ -93,18 +105,18 @@ public class CsvParser {
     return DateTimeFormatter.ofPattern("eee");
   }
 
-  private Set<DayOfWeek> populateSetWithDayOfWeek(int start, int end) {
+  private Set<DayOfWeek> populateSetWithDayOfWeek(int from, int until) {
     Set<DayOfWeek> days = new HashSet<>();
-    for (int i = start; i <= end; i++) {
+    for (int i = from; i <= until; i++) {
       days.add(DayOfWeek.of(i));
     }
     return days;
   }
 
   private int dayToInteger(Matcher matcher) {
-    String firstMatch = matcher.group(1).toLowerCase();
-    firstMatch = capitalizeFirstLetter(firstMatch);
-    TemporalAccessor accessor = dayFormatter().parse(firstMatch);
+    String matchedDay = matcher.group(1).toLowerCase();
+    matchedDay = capitalizeFirstLetter(matchedDay);
+    TemporalAccessor accessor = dayFormatter().parse(matchedDay);
     return DayOfWeek.from(accessor).getValue();
   }
 
@@ -113,7 +125,7 @@ public class CsvParser {
     return secondMatch;
   }
 
-  private Matcher getDayRangeMatcher(String period) {
+  private Matcher dayRangeMatcher(String period) {
     String regex = "((mon|tue|wed|thu|fri|sat|sun)-(mon|tue|wed|thu|fri|sat|sun))";
     Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
     return pattern.matcher(period);

@@ -32,7 +32,7 @@ class CsvParserTest {
   @Test
   public void parsesOpeningTimes() throws Exception {
     String period = "Mon-Sun 11:30 am - 9 pm";
-    OpeningTime result = csvParser.parseOpeningTime(period);
+    OpenCloseTimes result = csvParser.parseOpeningTime(period);
     assertEquals(LocalTime.of(11, 30), result.getOpening());
     assertEquals(LocalTime.of(21, 0), result.getClosing());
     period = "11 am - 11 pm  ";
@@ -49,20 +49,29 @@ class CsvParserTest {
   }
 
   @Test
-  public void matchEmptyDayRange() throws Exception {
+  public void matchSingleDay() throws Exception {
     String period = "Mon";
     Set<DayOfWeek> result = csvParser.getSetOfDays(period);
-    assertEquals(0,result.size());
+    assertEquals(1, result.size());
+    period = "suN";
+    result = csvParser.getSetOfDays(period);
+    assertEquals(1, result.size());
+    period = "foo";
+    result = csvParser.getSetOfDays(period);
+    assertEquals(0, result.size());
   }
 
   @Test
   public void matchDayRange() throws Exception {
     String period = "Mon-TUE";
     Set<DayOfWeek> result = csvParser.getSetOfDays(period);
-    assertEquals(2,result.size());
+    assertEquals(2, result.size());
     period = "tue-saT";
     result = csvParser.getSetOfDays(period);
-    assertEquals(5,result.size());
+    assertEquals(5, result.size());
+    period = "";
+    result = csvParser.getSetOfDays(period);
+    assertEquals(0, result.size());
   }
 
   private List<String[]> getListOfOpeningTimes() {
